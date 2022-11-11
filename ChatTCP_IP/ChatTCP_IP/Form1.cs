@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Media;
 
 namespace ChatTCP_IP
 {
@@ -41,9 +42,7 @@ namespace ChatTCP_IP
             STR = new StreamReader(client.GetStream());
             STW = new StreamWriter(client.GetStream());
             STW.AutoFlush = true;
-            STW.WriteLine(userName);
             backgroundWorker1.RunWorkerAsync();
-            stranger = STR.ReadLine();
             backgroundWorker2.WorkerSupportsCancellation = true;
         }
 
@@ -60,8 +59,8 @@ namespace ChatTCP_IP
                 STR = new StreamReader(client.GetStream());
                 STW.AutoFlush = true;
                 STW.WriteLine(userName);
-                backgroundWorker1.RunWorkerAsync();
                 stranger = STR.ReadLine();
+                backgroundWorker1.RunWorkerAsync();
                 backgroundWorker2.WorkerSupportsCancellation = true;
             }
             catch (Exception ex)
@@ -120,6 +119,8 @@ namespace ChatTCP_IP
         {
             if (MessagetextBox.Text != "")
             {
+                SoundPlayer splayer = new SoundPlayer(@"C:\Users\mathe\OneDrive\Documentos\Trabalho\ChatTCP_IP\ChatTCP_IP\ChatTCP_IP\Resources\message_sent.wav");
+                splayer.Play();
                 TextToSend = MessagetextBox.Text;
                 backgroundWorker2.RunWorkerAsync();
             }
